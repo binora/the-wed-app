@@ -68,5 +68,4 @@ const styles = StyleSheet.create({
   input : {
     width : 200
   }
-
-})
+});
