@@ -1,40 +1,72 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  View,
-  Image,
+  Text,
   TextInput,
-  Dimensions
-} from 'react-native';
+  View
+  } from 'react-native';
 
-let { height , width } = Dimensions.get('window');
+import { Button as LoginButton} from 'native-base';
 
-
-import rishuImage from '../images/me.jpg';
 
 export default class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      phone : ""
+    }
+  }
+
+  onChangeText(text) {
+    this.setState({
+      phone : text
+    });
+  }
+
+  onLoginPress() {
+    console.log('Login button pressed');
+  }
   render() {
     return (
-      <Image source={rishuImage} style={styles.container}>
-        <TextInput placeholder={"Phone no."} style={styles.phoneNumber}></TextInput>
-      </Image>
+      <View style={styles.loginContainer}>
+        <Text style={styles.title}>
+          Raman weds Surbhi
+        </Text>
+
+        <TextInput
+          placeholder={"Enter Mobile no."}
+          onChangeText={this.onChangeText.bind(this)}
+          keyboardType="numeric"
+          style={styles.input}>
+          {this.state.phone}
+        </TextInput>
+
+
+        <LoginButton style={styles.login} onPress={this.onLoginPress.bind(this)}>
+          Login!
+        </LoginButton>
+
+      </View>
     )
   }
 }
 
-
 const styles = StyleSheet.create({
-  container : {
+  loginContainer  : {
     flex : 1,
-    resizeMode : 'cover',
-    width : null,
-    height : null,
-    justifyContent : 'center',
-    alignItems : 'center',
-    flexDirection : 'column'
+    flexDirection : "column",
+    alignItems : "center",
+    justifyContent : "space-around"
   },
-  phoneNumber : {
-    width : 0.8*width,
-    backgroundColor : "white"
+  title : {
+    fontSize : 30
+  },
+  login : {
+    alignSelf : "center",
+    width : 100
+  },
+  input : {
+    width : 200
   }
-});
+
+})
