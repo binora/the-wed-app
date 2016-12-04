@@ -19,12 +19,36 @@ export default class Home extends Component {
 
   render() {
     return (
-      
-      <ScrollableTabView>
-        <Hotel tabLabel="Hotel" />
-        <Events tabLabel="Events" />
-        <Notifications tabLabel="Notifications" />
-      </ScrollableTabView>
+      <View style={styles.homeContainer}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>
+            Welcome Raman!
+          </Text>
+        </View>
+
+        <ScrollableTabView>
+          <Hotel tabLabel="Hotel" />
+          <Events tabLabel="Events" />
+          <Notifications tabLabel="Notifications" />
+        </ScrollableTabView>
+    </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  homeContainer : {
+    flex : 1,
+    flexDirection : "column"
+  },
+  header : {
+    padding : 15,
+    backgroundColor : "red",
+    flexDirection : "row",
+    justifyContent : "center"
+  },
+  headerText : {
+    fontSize : 15,
+    color : "white"
+  }
+})
