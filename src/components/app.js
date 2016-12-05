@@ -13,3 +13,16 @@ export default class App extends Component {
     )
   }
 }
+/*
+
+
+The view layer binding introduces three concepts:
+The Provider component: This is wrapped around the component tree. It makes it easy for the root component’s children to
+                        hook up to the store using connect().
+
+connect(): This is a function provided by react-redux. If a component wants to get state updates, it wraps itself using connect().
+                  Then the connect function will set up all the wiring for it, using the selector.
+
+selector: This is a function that you write. It specifies what parts of the state a component needs as properties.
+
+ */
