@@ -42,7 +42,7 @@ export default class Events extends Component {
             When? : {event.timestamp}
           </Text>
           <Text>
-            Description : {event.description}
+            {event.description}
           </Text>
         </Card>
       )
@@ -69,5 +69,4 @@ const styles = StyleSheet.create({
     flexDirection : "column",
     justifyContent : "space-around"
   }
-
 });
