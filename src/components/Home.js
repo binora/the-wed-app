@@ -7,6 +7,9 @@ import {
   } from 'react-native';
 
 
+import { Actions, Reducer } from 'react-native-router-flux';
+
+
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 
 // Import custom components
@@ -14,6 +17,8 @@ import Container from './Container';
 import Hotel from './Hotel';
 import Events from './Events';
 import Notifications from './Notifications';
+
+
 
 export default class Home extends Component {
 

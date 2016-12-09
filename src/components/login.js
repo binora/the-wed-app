@@ -8,6 +8,9 @@ import {
 
 import { Button as LoginButton} from 'native-base';
 
+import {Actions} from 'react-native-router-flux'
+
+
 
 export default class Login extends Component {
   constructor(props) {
@@ -24,7 +27,7 @@ export default class Login extends Component {
   }
 
   onLoginPress() {
-    console.log('Login button pressed');
+    Actions.home();
   }
   render() {
     return (
@@ -40,7 +43,6 @@ export default class Login extends Component {
           style={styles.input}>
           {this.state.phone}
         </TextInput>
-
 
         <LoginButton style={styles.login} onPress={this.onLoginPress.bind(this)}>
           Login!
