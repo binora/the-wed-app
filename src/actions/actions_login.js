@@ -1,17 +1,17 @@
-import { REQUEST_LOGIN, LOGIN_SUCCESS, PHONE_TEXT_CHANGE } from './actions';
+import { PHONE_TEXT_CHANGE } from './actionTypes';
 
-export function authenticateUser(phone) {
-  return (dispatch) => {
-    dispatch(requestLogin());
-    setTimeout( () => {
-      let data = {
-        user : "binny arora",
-        events :  events
-      };
-      dispatch(loginSuccess(data))
-    }, 2000)
-  }
-}
+// export function authenticateUser(phone) {
+//   return (dispatch) => {
+//     dispatch(requestLogin());
+//     setTimeout( () => {
+//       let data = {
+//         user : "binny arora",
+//         events :  events
+//       };
+//       dispatch(loginSuccess(data))
+//     }, 2000)
+//   }
+// }
 
 export function onChangeText(text) {
   return {

@@ -9,6 +9,7 @@ import {
 import { Button as LoginButton} from 'native-base';
 
 const Login = (props) => {
+    console.log(props);
   return (
     <View style={styles.loginContainer}>
       <Text style={styles.title}>
@@ -19,8 +20,8 @@ const Login = (props) => {
         placeholder={"Enter Mobile no."}
         onChangeText={props.onChangeText}
         keyboardType="numeric"
+        value={props.phone}
         style={styles.input}>
-        {props.phone}
       </TextInput>
 
       <LoginButton style={styles.login} onPress={props.onLoginPress}>

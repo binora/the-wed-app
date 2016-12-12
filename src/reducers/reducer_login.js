@@ -10,7 +10,11 @@ const login = (state = initialLoginState, action) => {
   switch(action.type) {
 
     case PHONE_TEXT_CHANGE :
-    return {...state, phone : action.phone};
+    if (action.phone.length > 10) {
+      console.log(action);
+      return state;
+    }
+    return Object.assign({}, state, {phone : action.phone});
 
     default :
     return state;

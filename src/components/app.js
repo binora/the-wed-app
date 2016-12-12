@@ -7,7 +7,7 @@ import {Scene, Router} from 'react-native-router-flux';
 
 
 import Container from './Container';
-import Login from './Login';
+import Login from '../containers/LoginContainer';
 import Home from './Home';
 
 

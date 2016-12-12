@@ -6,9 +6,9 @@ import { bindActionCreators } from 'redux';
 
 import Login from '../components/Login';
 
-import auth from '../actions/auth';
+import * as loginActions from '../actions/actions_login';
 
-class Login extends Component {
+class LoginContainer extends Component {
   render() {
     return (
       <Login
@@ -21,14 +21,14 @@ class Login extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    authenticateUser : auth.authenticateUser,
-    onChangeText     : auth.onChangeText
+    // authenticateUser : dispatch(auth.authenticateUser),
+    onChangeText     : loginActions.onChangeText
   }, dispatch);
 }
 
 const mapStateToProps = (state) => {
   return {
-    phone : state.phone
+    phone : state.login.phone
   }
 }
 
