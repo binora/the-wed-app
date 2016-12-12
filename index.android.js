@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native';
-import App from './src/components/App';
+import Index from './src/';
 
-AppRegistry.registerComponent('rishu_wedding', () => App);
+AppRegistry.registerComponent('rishu_wedding', () => Index);

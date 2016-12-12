@@ -8,49 +8,27 @@ import {
 
 import { Button as LoginButton} from 'native-base';
 
-import {Actions} from 'react-native-router-flux'
+const Login = (props) => {
+  return (
+    <View style={styles.loginContainer}>
+      <Text style={styles.title}>
+        Raman weds Surbhi
+      </Text>
 
+      <TextInput
+        placeholder={"Enter Mobile no."}
+        onChangeText={props.onChangeText}
+        keyboardType="numeric"
+        style={styles.input}>
+        {props.phone}
+      </TextInput>
 
+      <LoginButton style={styles.login} onPress={props.onLoginPress}>
+        Login!
+      </LoginButton>
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      phone : ""
-    }
-  }
-
-  onChangeText(text) {
-    this.setState({
-      phone : text
-    });
-  }
-
-  onLoginPress() {
-    Actions.home();
-  }
-  render() {
-    return (
-      <View style={styles.loginContainer}>
-        <Text style={styles.title}>
-          Raman weds Surbhi
-        </Text>
-
-        <TextInput
-          placeholder={"Enter Mobile no."}
-          onChangeText={this.onChangeText.bind(this)}
-          keyboardType="numeric"
-          style={styles.input}>
-          {this.state.phone}
-        </TextInput>
-
-        <LoginButton style={styles.login} onPress={this.onLoginPress.bind(this)}>
-          Login!
-        </LoginButton>
-
-      </View>
-    )
-  }
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -71,3 +49,5 @@ const styles = StyleSheet.create({
     width : 200
   }
 });
+
+export default Login;
