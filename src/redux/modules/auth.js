@@ -10,8 +10,13 @@ const LOGIN_SUCCESS = 'modules/LOGIN_SUCCESS';
 
 // Action Creators
 export function authenticateUser(phoneNumber) {
-    Actions.home();
-    return loginSuccess();
+    return function(dispatch) {
+        dispatch(requestLogin());
+        setTimeout(() => {
+            Actions.home();
+            dispatch(loginSuccess());
+        }, 1000);
+    }
 }
 
 
@@ -46,9 +51,9 @@ const initialState = {
 export default function reducer(state = initialState, action = {}) {
     console.log(state);
    switch(action.type)  {
-       case  REQUEST_LOGIN : return {
+       case  REQUEST_LOGIN : return Object.assign({}, state, {
            isFetching : true
-       };
+       });
        case LOGIN_SUCCESS : return Object.assign({}, state, {
            isFetching : false, 
            isLoggedIn : true
