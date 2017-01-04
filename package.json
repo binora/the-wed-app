@@ -16,7 +16,8 @@
     "react-native-scrollable-tab-view": "0.7.0",
     "react-redux": "^4.4.6",
     "redux": "3.6.0",
-    "redux-logger": "^2.7.4"
+    "redux-logger": "^2.7.4",
+    "tcomb-form-native": "^0.6.3"
   },
   "jest": {
     "preset": "react-native"

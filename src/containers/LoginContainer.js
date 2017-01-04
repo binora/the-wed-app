@@ -1,35 +1,38 @@
 import React, { Component } from 'react';
-import {Actions} from 'react-native-router-flux'
 import { connect } from 'react-redux';
+import {Actions} from 'react-native-router-flux'
 import { bindActionCreators } from 'redux';
 
+// Dumb component
+import LoginComponent from '../components/Login';
 
-import Login from '../components/Login';
+// action creators for the above component
+import { authenticateUser } from '../redux/modules/auth';
 
-import * as loginActions from '../actions/actions_login';
 
-class LoginContainer extends Component {
+class Login extends Component {
+  componentWillMount() {
+    if (this.props.isLoggedIn) {
+      Actions.home();
+      return false;
+    }
+    return true;
+  }
+
   render() {
-    return (
-      <Login
-        phone={this.props.phone}
-        onChangeText={this.props.onChangeText}
-        onLoginPress={this.props.authenticateUser}/>
-    )
+    return <LoginComponent authenticateUser={this.props.authenticateUser}/>
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    // authenticateUser : dispatch(auth.authenticateUser),
-    onChangeText     : loginActions.onChangeText
+    authenticateUser : authenticateUser
   }, dispatch);
 }
 
 const mapStateToProps = (state) => {
   return {
-    phone : state.login.phone
-  }
+    isLoggedIn : state.auth.isLoggedIn
+  };
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -7,7 +7,6 @@ import {
   } from 'react-native';
 
 
-import { Actions, Reducer } from 'react-native-router-flux';
 
 
 import ScrollableTabView from 'react-native-scrollable-tab-view'
@@ -20,9 +19,7 @@ import Notifications from './Notifications';
 
 
 
-export default class Home extends Component {
-
-  render() {
+const Home = (props) => {
     return (
       <View style={styles.homeContainer}>
         <View style={styles.header}>
@@ -38,8 +35,7 @@ export default class Home extends Component {
         </ScrollableTabView>
     </View>
     )
-  }
-}
+};
 
 const styles = StyleSheet.create({
   homeContainer : {
@@ -57,3 +53,5 @@ const styles = StyleSheet.create({
     color : "white"
   }
 })
+
+export default Home;
