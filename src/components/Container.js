@@ -2,25 +2,30 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  View } from 'react-native';
+  View,
+  Image
+} from 'react-native';
 
-import bgImage from '../images/bg_image.jpeg';
+import bgImage from '../images/bg_image.jpg';
 
 export default class Container extends Component {
   render() {
+    console.log(bgImage);
     return (
-      <View style={styles.container}>
-        {this.props.children}
-      </View>
+        <Image source={bgImage} style={styles.container} onLoad={()=> {console.log("DFDF")}}>
+          {this.props.children}
+        </Image>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container : {
-    flex : 1,
-    flexDirection : 'column',
-    justifyContent : 'center',
-    backgroudImage : bgImage
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    resizeMode : 'stretch',
+    height : undefined,
+    width : undefined
   }
 });

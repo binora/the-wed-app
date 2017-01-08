@@ -4,10 +4,13 @@ import {
   Text,
   TextInput,
   View,
-  ScrollView
+  ScrollView,
+  Image
   } from 'react-native';
 
 import { Card, CardItem } from 'native-base';
+
+import cardBg from '../images/card_bg.jpg';
 
 export default class Events extends Component {
   renderEvents(events) {
@@ -50,5 +53,11 @@ const styles = StyleSheet.create({
     flex : 1,
     flexDirection : "column",
     justifyContent : "space-around"
+  },
+  cardImage : {
+    height : null, 
+    width : null, 
+    resizeMode : 'cover'
+
   }
 });

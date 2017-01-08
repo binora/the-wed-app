@@ -4,6 +4,7 @@ import { BackAndroid } from 'react-native';
 import { bindActionCreators } from 'redux';
 
 import { Actions } from 'react-native-router-flux';
+
 import HomeComponent from '../components/Home';
 
 import { fetchEvents } from '../redux/modules/events';
@@ -26,10 +27,10 @@ class Home extends Component {
         });
     }
     render() {
-        return <HomeComponent 
-        user={this.props.user} 
-        marriageEvents={this.props.marriageEvents}
-        logoutUser={this.props.logoutUser}/>
+        return <HomeComponent
+            user={this.props.user}
+            marriageEvents={this.props.marriageEvents}
+            logoutUser={this.props.logoutUser} />
     }
 }
 const mapStateToProps = (state) => {
@@ -39,14 +40,14 @@ const mapStateToProps = (state) => {
     return {
         isLoggedIn: state.auth.isLoggedIn,
         user: state.auth.user,
-        marriageEvents : state.events.marriageEvents
+        marriageEvents: state.events.marriageEvents
     };
 }
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    fetchEvents : fetchEvents,
-    logoutUser : logoutUser
-  }, dispatch);
+    return bindActionCreators({
+        fetchEvents: fetchEvents,
+        logoutUser: logoutUser
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

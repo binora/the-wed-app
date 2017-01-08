@@ -53,13 +53,11 @@ const styles = StyleSheet.create({
   },
   header: {
     padding: 15,
-    backgroundColor: "red",
     flexDirection: "row",
     justifyContent: "space-between"
   },
   headerText: {
-    fontSize: 15,
-    color: "white"
+    fontSize:   15 
   }
 })
 
