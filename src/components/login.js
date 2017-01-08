@@ -13,7 +13,6 @@ import {
 
 import { Button as LoginButton } from 'native-base';
 
-
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +23,13 @@ export default class Login extends Component {
     this.onLoginPress = this.onLoginPress.bind(this);
   }
 
+  componentWillUpdate() {
+    if (this.props.auth.isLoggedIn) {
+      this.setState({
+        phoneNumber : ''
+      });
+    }
+  }
   onChangeText(text) {
     if (text.length > 10) {
       return;
@@ -34,7 +40,7 @@ export default class Login extends Component {
   }
 
   onLoginPress() {
-    this.props.authenticateUser(this.state.phoneNumber)
+    this.props.loginUsingPhoneNumber(this.state.phoneNumber)
   }
 
   renderLoginButton() {

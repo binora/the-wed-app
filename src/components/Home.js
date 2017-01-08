@@ -3,8 +3,10 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View
-  } from 'react-native';
+  View,
+  TouchableHighlight,
+  TouchableOpacity
+} from 'react-native';
 
 
 
@@ -20,37 +22,44 @@ import Notifications from './Notifications';
 
 
 const Home = (props) => {
-    return (
-      <View style={styles.homeContainer}>
-        <View style={styles.header}>
-          <Text style={styles.headerText}>
-            Welcome {props.user.user_name}!
-          </Text>
-        </View>
 
-        <ScrollableTabView>
-          <Hotel tabLabel="Hotel" room={props.user.room}/>
-          <Events tabLabel="Events" marriageEvents={props.marriageEvents}/>
-          <Notifications tabLabel="Notifications" />
-        </ScrollableTabView>
+  return (
+    <View style={styles.homeContainer}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>
+          Welcome {props.user.user_name}!
+          </Text>
+        <TouchableOpacity onPress={props.logoutUser}>
+          <Text style={styles.headerText}>
+            Logout
+        </Text>
+        </TouchableOpacity>
+      </View>
+
+      <ScrollableTabView>
+        <Hotel tabLabel="Hotel" room={props.user.room} />
+        <Events tabLabel="Events" marriageEvents={props.marriageEvents} />
+        <Notifications tabLabel="Notifications" />
+      </ScrollableTabView>
     </View>
-    )
+  )
 };
 
+
 const styles = StyleSheet.create({
-  homeContainer : {
-    flex : 1,
-    flexDirection : "column"
+  homeContainer: {
+    flex: 1,
+    flexDirection: "column"
   },
-  header : {
-    padding : 15,
-    backgroundColor : "red",
-    flexDirection : "row",
-    justifyContent : "center"
+  header: {
+    padding: 15,
+    backgroundColor: "red",
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
-  headerText : {
-    fontSize : 15,
-    color : "white"
+  headerText: {
+    fontSize: 15,
+    color: "white"
   }
 })
 

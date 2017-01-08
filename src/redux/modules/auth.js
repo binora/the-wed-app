@@ -1,9 +1,6 @@
 /**
  * @module Auth
  */
-
-import { AsyncStorage } from 'react-native';
-
 import { Actions } from 'react-native-router-flux';
 
 import * as constants from '../../constants';
@@ -13,7 +10,8 @@ import * as utils from '../../utils';
 const REQUEST_LOGIN = 'auth/REQUEST_LOGIN';
 const LOGIN_FAILED = 'auth/LOGIN_FAILED';
 const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
-const SHOW_LOGIN_SCREEN = 'auth/SHOW_LOGIN_SCREEN';
+const LOGOUT_FAILED = 'auth/LOGOUT_FAILED';
+const LOGOUT_SUCCESSFUL = 'auth/LOGOUT_SUCCESSFUL';
 
 
 export function requestLogin() {
@@ -36,15 +34,16 @@ export function loginSuccess(user) {
     };
 }
 
-export function showLoadingScreen() {
+export function logoutFailed(error) {
     return {
-        type: SHOW_LOADING_SCREEN
+        type: LOGOUT_FAILED,
+        error: error
     }
 }
-export function showLoginScreen(error) {
+
+export function logoutSuccessful() {
     return {
-        type: SHOW_LOGIN_SCREEN,
-        error : error
+        type: LOGOUT_SUCCESSFUL
     }
 }
 
@@ -66,36 +65,34 @@ export default function reducer(state = initialState, action = {}) {
             isLoggedIn: true,
             user: action.user
         });
-
-        case SHOW_LOGIN_SCREEN:
         case LOGIN_FAILED: return Object.assign({}, state, {
-            isFetching: false,
-            loginError: action.error
+            isFetching: false
         });
+        case LOGOUT_SUCCESSFUL: return Object.assign({}, state, {
+            isLoggedIn: false
+        });
+        case LOGOUT_FAILED:
         default: return state
     }
 }
 
 
 // Login logic
-export function authenticateUser(phoneNumber) {
+export function loginUsingPhoneNumber(phoneNumber) {
     return async function (dispatch) {
         dispatch(requestLogin());
-        let [error, body] = await loginUsingPhoneNumber(phoneNumber);
+        var url = constants.SERVER_URL + constants.urls.LOGIN;
+        var method = "POST";
+        var data = {
+            phone: phoneNumber
+        };
+        let [error, body] = await utils.request(url, method, data);
         if (error) {
             dispatch(loginFailed(error));
             return;
         }
         return dispatch(saveToken(body.user));
     }
-}
-async function loginUsingPhoneNumber(phoneNumber) {
-    var url = constants.SERVER_URL + constants.urls.LOGIN;
-    var method = "POST";
-    var data = {
-        phone: phoneNumber
-    };
-    return await utils.request(url, method, data);
 }
 function saveToken(user) {
     return async function (dispatch) {
@@ -114,7 +111,7 @@ export function loginUsingAccessToken() {
         let [tokenError, token] = await utils.getItemFromCache('token');
 
         if (tokenError) {
-            dispatch(showLoginScreen());
+            dispatch(loginFailed(tokenError));
             return;
         }
 
@@ -126,9 +123,22 @@ export function loginUsingAccessToken() {
         };
         let [error, body] = await utils.request(url, method, data);
         if (error) {
-            dispatch(showLoginScreen(error));
+            dispatch(loginFailed(error));
             return
         }
         dispatch(loginSuccess(body.user));
+    }
+}
+
+
+export function logoutUser() {
+    return async function (dispatch) {
+        // delete the access token from cache
+        let deleteError = await utils.deleteToken();
+        if (deleteError) {
+            dispatch(logoutFailed(deleteError));
+            return;
+        }
+        dispatch(logoutSuccessful());
     }
 }

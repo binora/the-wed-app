@@ -10,8 +10,7 @@ async function request(url, method, data) {
         },
     };
     if (method === "POST") {
-        options.body = JSON.stringify(data);
-    } else {
+        options.body = JSON.stringify(data); } else {
         options.qs = data
     }
     try {
@@ -20,9 +19,9 @@ async function request(url, method, data) {
         if (body.status) {
             return [null, body];
         }
-        throw new Error(body.error);
+        return [body.error, null];
     } catch(error) {
-        return [error, null];
+        return [error.message, null];
     }
 }
 
@@ -31,7 +30,7 @@ async function saveItemToCache(key, value) {
         await AsyncStorage.setItem(key, value);
         return;
     } catch(error) {
-        return error;
+        return error.message;
     }
 }
 
@@ -41,10 +40,19 @@ async function getItemFromCache(key) {
         if (value !== null) {
             return [null, value];
         }
-        throw new Error("No such value");
+        let error = new Error("no such value");
+        return [error.message, null];
     } catch(error) {
-        return [error, null];
+        return [error.message, null];
     }
 }
 
-export { request, saveItemToCache, getItemFromCache };
+async function deleteToken() {
+    try {
+        await AsyncStorage.removeItem('token');
+    } catch(error) {
+        return error.message;
+    }
+}
+
+export { request, saveItemToCache, getItemFromCache, deleteToken };

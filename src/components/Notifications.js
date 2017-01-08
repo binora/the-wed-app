@@ -9,27 +9,8 @@ import {
 
 import { Card, CardItem } from 'native-base';
 
-let notifications = [
-  {
-    "id"      : 1,
-    "message" : "This is first notification"
-  },
-  {
-    "id"      : 2,
-    "message" : "This is a notification"
-  },
-  {
-    "id"      : 4,
-    "message" : "This is a notification"
-  },
-  {
-    "id"      : 3,
-    "message" : "This is a notification"
-  }
-]
-
 export default class Notifications extends Component {
-  renderNotifications() {
+  renderNotifications(notifications) {
     return notifications.map((notif) => {
       return (
         <Card style={styles.notifCard} key={notif.id}>
@@ -44,7 +25,7 @@ export default class Notifications extends Component {
   render() {
     return (
       <ScrollView contentContainerStyle={styles.notifContainer}>
-        {this.renderNotifications()}
+        {this.renderNotifications([])}
       </ScrollView>
     )
   }
