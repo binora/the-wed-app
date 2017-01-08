@@ -7,32 +7,32 @@ import { bindActionCreators } from 'redux';
 import LoginComponent from '../components/Login';
 
 // action creators for the above component
-import { authenticateUser } from '../redux/modules/auth';
+import { authenticateUser, loginUsingAccessToken } from '../redux/modules/auth';
 
 
 class Login extends Component {
   componentWillMount() {
-    if (this.props.isLoggedIn) {
-      Actions.home();
-      return false;
-    }
-    return true;
+    this.props.loginUsingToken();
   }
 
   render() {
-    return <LoginComponent authenticateUser={this.props.authenticateUser}/>
+    return <LoginComponent authenticateUser={this.props.authenticateUser} auth={this.props.auth}/>
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    authenticateUser : authenticateUser
+    authenticateUser : authenticateUser,
+    loginUsingToken : loginUsingAccessToken
   }, dispatch);
 }
 
 const mapStateToProps = (state) => {
+  if (state.auth.isLoggedIn) {
+    Actions.home();
+  }
   return {
-    isLoggedIn : state.auth.isLoggedIn
+    auth : state.auth
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

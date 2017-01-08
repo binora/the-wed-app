@@ -15,18 +15,19 @@ class Home extends Component {
             if (this.props.isLoggedIn) {
                 BackAndroid.exitApp();
             }
+            return false;
         });
-        return false;
     }
     render() {
-        return <HomeComponent/>
- 
+        return <HomeComponent user={this.props.user} />
+
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        isLoggedIn : state.auth.isLoggedIn
+        isLoggedIn: state.auth.isLoggedIn,
+        user: state.auth.user
     };
 }
 

@@ -24,12 +24,12 @@ const Home = (props) => {
       <View style={styles.homeContainer}>
         <View style={styles.header}>
           <Text style={styles.headerText}>
-            Welcome Raman!
+            Welcome {props.user.user_name}!
           </Text>
         </View>
 
         <ScrollableTabView>
-          <Hotel tabLabel="Hotel" />
+          <Hotel tabLabel="Hotel" room={props.user.room}/>
           <Events tabLabel="Events" />
           <Notifications tabLabel="Notifications" />
         </ScrollableTabView>

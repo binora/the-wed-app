@@ -20,7 +20,7 @@ export default class Hotel extends Component {
       <View style={styles.hotelContainer}>
         <Card style={styles.card}>
             <Text style={{fontSize : 50, alignSelf : "center"}}>
-              Room : 81
+              Room : {this.props.room}
             </Text>
         </Card>
         <Card style={styles.card}>
