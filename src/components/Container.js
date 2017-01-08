@@ -4,6 +4,7 @@ import {
   Text,
   View } from 'react-native';
 
+import bgImage from '../images/bg_image.jpeg';
 
 export default class Container extends Component {
   render() {
@@ -19,6 +20,7 @@ const styles = StyleSheet.create({
   container : {
     flex : 1,
     flexDirection : 'column',
-    justifyContent : 'center'
+    justifyContent : 'center',
+    backgroudImage : bgImage
   }
 });

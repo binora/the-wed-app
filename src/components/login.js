@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 // Components
 import Loader from './Loader';
 
@@ -8,8 +9,11 @@ import {
   Text,
   TextInput,
   View,
-  Alert
+  Alert,
+  Dimensions
 } from 'react-native';
+
+let { width , height } = Dimensions.get('window');
 
 import { Button as LoginButton } from 'native-base';
 
@@ -26,7 +30,7 @@ export default class Login extends Component {
   componentWillUpdate() {
     if (this.props.auth.isLoggedIn) {
       this.setState({
-        phoneNumber : ''
+        phoneNumber: ''
       });
     }
   }
@@ -48,16 +52,21 @@ export default class Login extends Component {
       return <Loader isVisible={this.props.auth.isFetching} />
     }
     return (
-      <View>
+      <View style={styles.loginView}>
         <TextInput
-          placeholder={"Enter Mobile no."}
+          placeholder={"Phone No."}
           onChangeText={this.onChangeText}
           keyboardType="numeric"
           value={this.state.phoneNumber}
-          style={styles.input}>
+          onSubmitEditing={this.onLoginPress}
+          style={styles.input}
+          underlineColorAndroid='rgba(0,0,0,0)'>
         </TextInput>
-        <LoginButton style={styles.login} onPress={this.onLoginPress}>
-          Login!
+        <LoginButton
+          style={styles.loginButton}
+          onPress={this.onLoginPress}
+          btnFontFamily={"respective"} >
+          Login
         </LoginButton>
       </View>
     )
@@ -65,9 +74,11 @@ export default class Login extends Component {
   render() {
     return (
       <View style={styles.loginContainer}>
-        <Text style={styles.title}>
-          Raman weds Surbhi
+        <View style={styles.heading}>
+          <Text style={styles.title}>
+            Raman weds Surbhi
         </Text>
+        </View>
         {this.renderLoginButton()}
       </View>
     )
@@ -78,17 +89,32 @@ const styles = StyleSheet.create({
   loginContainer: {
     flex: 1,
     flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "space-around"
+    alignItems : "center",
+    backgroundColor : 'red'
+  },
+  heading: {
+    marginTop: 60,
+    marginBottom: 100
   },
   title: {
-    fontSize: 30
+    fontSize: 40,
+    fontFamily: "respective"
   },
-  login: {
+  loginView: {
+    minHeight: 200,
+    flexDirection: "column",
+    justifyContent: "space-around"
+  },
+  loginButton: {
     alignSelf: "center",
-    width: 100
+    width: 100,
+
   },
   input: {
-    width: 200
+    width: .66*width,
+    borderWidth : 1,
+    borderRadius : 5,
+    height : 50,
+    borderColor : 'gray'
   }
 });
