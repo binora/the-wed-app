@@ -30,7 +30,7 @@ const Home = (props) => {
 
         <ScrollableTabView>
           <Hotel tabLabel="Hotel" room={props.user.room}/>
-          <Events tabLabel="Events" />
+          <Events tabLabel="Events" marriageEvents={props.marriageEvents}/>
           <Notifications tabLabel="Notifications" />
         </ScrollableTabView>
     </View>

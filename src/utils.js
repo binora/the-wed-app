@@ -8,8 +8,12 @@ async function request(url, method, data) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
     };
+    if (method === "POST") {
+        options.body = JSON.stringify(data);
+    } else {
+        options.qs = data
+    }
     try {
         let response = await fetch(url, options);
         let body = await response.json();
