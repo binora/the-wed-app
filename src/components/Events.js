@@ -5,10 +5,13 @@ import {
   TextInput,
   View,
   ScrollView,
-  Image
-  } from 'react-native';
+  Image,
+  Dimensions
+} from 'react-native';
 
 import { Card, CardItem } from 'native-base';
+
+let { height, width } = Dimensions.get('window');
 
 import cardBg from '../images/card_bg.jpg';
 
@@ -17,18 +20,28 @@ export default class Events extends Component {
     return events.map((event) => {
       return (
         <Card style={styles.eventCard} key={event._id}>
-          <Text>
-            Event : {event.name}
-          </Text>
-          <Text>
-            Date : {event.event_date && (new Date(event.event_date)).toDateString()}
-          </Text>
-          <Text>
-            Start time : {event.start_time}
-          </Text>
-          <Text>
-            Venue : {event.venue}
-          </Text>
+
+          <Image source={cardBg} style={styles.cardImage}>
+          <CardItem header>
+            <Text style={styles.eventName}>
+              {event.name}
+            </Text>
+        </CardItem>
+          <CardItem>
+            <Text style={styles.cardText}>
+              {event.start_time}
+              </Text>
+              <Text style={styles.cardText}>
+              {event.event_date && (new Date(event.event_date)).toDateString()}
+            </Text>
+          </CardItem>
+
+          <CardItem header>
+            <Text style={styles.cardText}>
+              {event.venue}
+            </Text>
+          </CardItem>
+            </Image>
         </Card>
       )
     });
@@ -44,20 +57,31 @@ export default class Events extends Component {
 }
 
 const styles = StyleSheet.create({
-  eventContainer : {
-    flexDirection : "column",
-    justifyContent : "center"
+  eventContainer: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems : "center"
   },
-  eventCard : {
-    height : 250,
-    flex : 1,
-    flexDirection : "column",
-    justifyContent : "space-around"
+  eventCard: {
+    marginTop : 20,
+    width : 0.9*width,
+    flex: 1,
+    flexDirection: "column"
   },
-  cardImage : {
-    height : null, 
-    width : null, 
-    resizeMode : 'cover'
+  cardImage: {
+    height: null,
+    width: null,
+    resizeMode: 'cover'
+  },
+  eventName : {
+    fontFamily : "ds_regular",
+    fontSize : 25,
+    color : "white"
 
+  },
+  cardText : {
+    fontFamily : "ds_regular",
+    color : "white",
+    fontSize :20
   }
 });
