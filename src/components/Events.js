@@ -20,7 +20,6 @@ export default class Events extends Component {
     return events.map((event) => {
       return (
         <Card style={styles.eventCard} key={event._id}>
-
           <Image source={cardBg} style={styles.cardImage}>
           <CardItem header>
             <Text style={styles.eventName}>

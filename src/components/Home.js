@@ -9,11 +9,10 @@ import {
   Image
 } from 'react-native';
 
-
-
-
 import ScrollableTabView from 'react-native-scrollable-tab-view'
-import cardBg from '../images/card_bg.jpg';
+import LinearGradient from 'react-native-linear-gradient';
+
+
 
 // Import custom components
 import Container from './Container';
@@ -27,7 +26,7 @@ const Home = (props) => {
 
   return (
     <View style={styles.homeContainer}>
-    <View style={styles.header}>
+      <LinearGradient colors={["#8E0E00", "#1F1C18"]} style={styles.header}>
         <Text style={styles.headerText}>
           Welcome {props.user.user_name}!
           </Text>
@@ -36,12 +35,12 @@ const Home = (props) => {
             logout
         </Text>
         </TouchableOpacity>
-        </View>
+      </LinearGradient>
 
-      <ScrollableTabView 
-      tabBarBackgroundColor="white" 
-      tabBarUnderlineStyle={styles.tabBarUnderline}
-      tabBarActiveTextColor="black">
+      <ScrollableTabView
+        tabBarBackgroundColor="#EEEEEE"
+        tabBarUnderlineStyle={styles.tabBarUnderline}
+        tabBarActiveTextColor="black">
         <Hotel tabLabel="Hotel" room={props.user.room} />
         <Events tabLabel="Events" marriageEvents={props.marriageEvents} />
         <Notifications tabLabel="Notifications" />
@@ -54,7 +53,8 @@ const Home = (props) => {
 const styles = StyleSheet.create({
   homeContainer: {
     flex: 1,
-    flexDirection: "column"
+    flexDirection: "column",
+    backgroundColor : "#EEEEEE"
   },
   header: {
     padding: 15,
@@ -62,13 +62,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   headerText: {
-    fontSize:   15
+    fontSize: 15,
+    color : "#EEEEEE"
   },
-  logout : {
-    fontSize:  10
+  logout: {
+    fontSize: 10,
+    color : "#EEEEEE"
   },
-  tabBarUnderline : {
-    backgroundColor : "red"
+  tabBarUnderline: {
+    backgroundColor: "red"
   }
 })
 
