@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "345129088857",
+    "firebase_url": "https://rishuwedding-a45f3.firebaseio.com",
+    "project_id": "rishuwedding-a45f3",
+    "storage_bucket": "rishuwedding-a45f3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:345129088857:android:6b53189a4a8bef10",
+        "android_client_info": {
+          "package_name": "com.rishu_wedding"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "345129088857-pnsu14ih8vknc9ieq8t7rd1e6c4493bv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDydK4VdXzDJoys5maRDTZdS1qe4c0l_3g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

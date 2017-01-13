@@ -10,6 +10,7 @@
     "native-base": "0.5.16",
     "react": "15.4.1",
     "react-native": "0.38.0",
+    "react-native-fcm": "^2.5.6",
     "react-native-image-preview": "0.1.1",
     "react-native-linear-gradient": "1.6.2",
     "react-native-popup": "0.6.1",

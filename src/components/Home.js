@@ -6,7 +6,7 @@ import {
   View,
   TouchableHighlight,
   TouchableOpacity,
-  Image
+  Image,
 } from 'react-native';
 
 import ScrollableTabView from 'react-native-scrollable-tab-view'
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   homeContainer: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor : "#EEEEEE"
+    backgroundColor: "#EEEEEE"
   },
   header: {
     padding: 15,
@@ -62,12 +62,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   headerText: {
-    fontSize: 15,
-    color : "#EEEEEE"
+    fontSize: 20,
+    color: "#EEEEEE"
   },
   logout: {
     fontSize: 10,
-    color : "#EEEEEE"
+    color: "white"
   },
   tabBarUnderline: {
     backgroundColor: "red"

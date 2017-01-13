@@ -41,7 +41,7 @@ export default class Hotel extends Component {
           </View>
 
           <LinearGradient colors={["#8E0E00", "#1F1C18"]} style={styles.cardBg}>
-            <Text style={styles.address}>
+            <Text style={styles.shagunText}>
               Shagun Hotel,
             </Text>
             <Text style={styles.address}>
@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
   },
   card: {
     flex : 0,
-    width: 0.9 * width
+    width: 0.9 * width,
+    marginBottom : 20
   },
   location: {
     flexDirection: "row",
@@ -78,6 +79,14 @@ const styles = StyleSheet.create({
     width: 250,
     fontSize: 15,
     alignSelf: "center",
-    color : "#EEEEEE"
+    color : "#EEEEEE",
+    paddingBottom : 10
+  },
+  shagunText : {
+    width: 250,
+    fontSize: 15,
+    alignSelf: "center",
+    color : "#EEEEEE",
+    paddingTop : 10
   }
 })
