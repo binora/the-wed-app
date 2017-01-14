@@ -9,11 +9,8 @@ const Loader = (props) => {
         isVisible={props.isVisible}
         type={"Pulse"}
         size={50}
-        color={"red"} />
+        color={"red"}
+        style={props.style} />
 };
-
-
-const styles = StyleSheet.create({
-});
 
 export default Loader;

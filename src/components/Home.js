@@ -43,7 +43,11 @@ const Home = (props) => {
         tabBarActiveTextColor="black">
         <Hotel tabLabel="Hotel" room={props.user.room} />
         <Events tabLabel="Events" marriageEvents={props.marriageEvents} />
-        <Notifications tabLabel="Notifications" />
+        <Notifications tabLabel="Notifications"
+          fetchNotifications={props.fetchNotifications}
+          isFetching={props.isFetching}
+          notifications={props.notifications}
+          user={props.user}/>
       </ScrollableTabView>
     </View>
   )

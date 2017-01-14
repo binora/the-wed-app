@@ -10,8 +10,9 @@ async function request(url, method, data) {
         },
     };
     if (method === "POST") {
-        options.body = JSON.stringify(data); } else {
-        options.qs = data
+        options.body = JSON.stringify(data);
+    } else {
+        options.qs = data;
     }
     try {
         let response = await fetch(url, options);
@@ -20,7 +21,7 @@ async function request(url, method, data) {
             return [null, body];
         }
         return [body.error, null];
-    } catch(error) {
+    } catch (error) {
         return [error.message, null];
     }
 }
@@ -29,7 +30,7 @@ async function saveItemToCache(key, value) {
     try {
         await AsyncStorage.setItem(key, value);
         return;
-    } catch(error) {
+    } catch (error) {
         return error.message;
     }
 }
@@ -42,7 +43,7 @@ async function getItemFromCache(key) {
         }
         let error = new Error("no such value");
         return [error.message, null];
-    } catch(error) {
+    } catch (error) {
         return [error.message, null];
     }
 }
@@ -50,7 +51,7 @@ async function getItemFromCache(key) {
 async function deleteToken() {
     try {
         await AsyncStorage.removeItem('token');
-    } catch(error) {
+    } catch (error) {
         return error.message;
     }
 }

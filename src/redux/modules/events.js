@@ -34,7 +34,7 @@ export function fetchingEvents() {
 
 export function fetchEventsFailed(error) {
     return {
-        type: FETCH_EVENTS_FAILED,
+       type: FETCH_EVENTS_FAILED,
         error: error
     };
 }
@@ -78,7 +78,7 @@ async function fetchMarriageEvents() {
     }
     // use this token to request events
     let url = constants.SERVER_URL + constants.urls.GET_ALL_EVENTS;
-    let method = "GET";
+    let method = "POST";
     let data = {
         access_token : token
     };
