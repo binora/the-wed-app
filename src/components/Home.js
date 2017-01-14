@@ -6,7 +6,7 @@ import {
   View,
   TouchableHighlight,
   TouchableOpacity,
-  Image,
+  Image
 } from 'react-native';
 
 import ScrollableTabView from 'react-native-scrollable-tab-view'
@@ -38,6 +38,7 @@ const Home = (props) => {
       </LinearGradient>
 
       <ScrollableTabView
+        contentProps={{keyboardShouldPersistTaps : true}}
         tabBarBackgroundColor="#EEEEEE"
         tabBarUnderlineStyle={styles.tabBarUnderline}
         tabBarActiveTextColor="black">
@@ -47,7 +48,9 @@ const Home = (props) => {
           fetchNotifications={props.fetchNotifications}
           isFetching={props.isFetching}
           notifications={props.notifications}
-          user={props.user}/>
+          user={props.user}
+          sendingNotification={props.sendingNotification}
+          sendNotification={props.sendNotification}/>
       </ScrollableTabView>
     </View>
   )

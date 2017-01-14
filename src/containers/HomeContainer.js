@@ -9,7 +9,7 @@ import FCM from 'react-native-fcm';
 import HomeComponent from '../components/Home';
 
 import { fetchEvents } from '../redux/modules/events';
-import { fetchNotifications } from '../redux/modules/notifications';
+import { fetchNotifications, sendNotification } from '../redux/modules/notifications';
 
 import { logoutUser } from '../redux/modules/auth';
 
@@ -45,6 +45,8 @@ class Home extends Component {
             marriageEvents={this.props.marriageEvents}
             logoutUser={this.props.logoutUser}
             fetchNotifications={this.props.fetchNotifications}
+            sendingNotification={this.props.sendingNotification}
+            sendNotification={this.props.sendNotification}
             notifications={this.props.notifications} />
     }
 }
@@ -57,14 +59,16 @@ const mapStateToProps = (state) => {
         user: state.auth.user,
         marriageEvents: state.events.marriageEvents,
         notifications : state.notifs.notifications,
-        isFetching : state.notifs.isFetching
+        isFetching : state.notifs.isFetching,
+        sendingNotification : state.notifs.sendingNotification
     };
 }
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         fetchEvents: fetchEvents,
         logoutUser: logoutUser,
-        fetchNotifications : fetchNotifications
+        fetchNotifications : fetchNotifications,
+        sendNotification : sendNotification
     }, dispatch);
 }
 

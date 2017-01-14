@@ -5,22 +5,35 @@ import {
   TextInput,
   View,
   ScrollView,
-  Dimensions
+  Dimensions,
+  Keyboard
 } from 'react-native';
 
-import { Card, CardItem } from 'native-base';
+import { Card, CardItem, Button as SendButton } from 'native-base';
 import Loader from './Loader';
 import LinearGradient from 'react-native-linear-gradient';
+
+import moment from 'moment';
 
 let { width, height } = Dimensions.get('window');
 
 export default class Notifications extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      notif_body: ''
+    };
+    this.onChangeText = this.onChangeText.bind(this);
+    this.onSendPress = this.onSendPress.bind(this);
+  }
 
   componentWillMount() {
     this.props.fetchNotifications();
   }
 
   renderNotifications(notifications) {
+
     if (this.props.isFetching) {
       return <Loader isVisible={this.props.isFetching} style={styles.loader} />
     }
@@ -35,6 +48,9 @@ export default class Notifications extends Component {
               <Text style={styles.message}>
                 {notif.notif_body}
               </Text>
+              <Text style={styles.small}>
+                {moment(notif.sent_at).format('MMMM Do YYYY, h:mm:ss a')}
+              </Text>
             </CardItem>
           </LinearGradient>
         </Card>
@@ -42,11 +58,62 @@ export default class Notifications extends Component {
     });
 
   }
+
+  onChangeText(text) {
+    this.setState({
+      notif_body: text
+    });
+  }
+
+  onSendPress() {
+    Keyboard.dismiss();
+    if (!this.state.notif_body.length) {
+      return;
+    }
+    this.props.sendNotification(this.state.notif_body);
+    this.setState({
+      notif_body: ''
+    });
+  }
+  renderSendButton() {
+    if (this.props.sendingNotification) {
+      return <Loader isVisible={true} />
+    }
+    return (
+      <SendButton
+        onPress={this.onSendPress}
+        style={styles.sendButton}>
+        Send
+      </SendButton>
+    )
+  }
+  renderAdminView() {
+    if (!this.props.user.is_admin) {
+      return <View></View>
+    }
+    return (
+      <View style={styles.notifInputContainer} >
+        <TextInput
+          placeholder={"Type a message"}
+          onChangeText={this.onChangeText}
+          value={this.state.notif_body}
+          style={styles.input}
+          onSubmitEditing={this.onSendPress}
+          underlineColorAndroid='rgba(0,0,0,0)' >
+        </TextInput>
+        {this.renderSendButton()}
+      </View>
+    )
+  }
+
   render() {
     return (
-      <ScrollView contentContainerStyle={styles.notifContainer}>
-        {this.renderNotifications(this.props.notifications)}
-      </ScrollView>
+      <View >
+        <ScrollView contentContainerStyle={styles.notifContainer}>
+          {this.renderNotifications(this.props.notifications)}
+        </ScrollView>
+        {this.renderAdminView()}
+      </View>
     )
   }
 }
@@ -63,9 +130,28 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 20,
-    color : "white"
+    color: "white"
   },
-  loader : {
-    marginTop : 0.3*height
+  loader: {
+    marginTop: 0.3 * height
+  },
+  notifInputContainer: {
+    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 5
+  },
+  input: {
+    width: .65 * width,
+    height: 50,
+    borderColor: 'black',
+    marginLeft: 0.05 * width
+  },
+  sendButton: {
+    alignSelf: "center",
+    height: 50,
+    width: 0.2 * width,
   }
 });
