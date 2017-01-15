@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BackAndroid } from 'react-native';
+import { BackAndroid, Alert } from 'react-native';
 import { bindActionCreators } from 'redux';
 
 import { Actions } from 'react-native-router-flux';
@@ -8,10 +8,18 @@ import FCM from 'react-native-fcm';
 
 import HomeComponent from '../components/Home';
 
-import { fetchEvents } from '../redux/modules/events';
-import { fetchNotifications, sendNotification } from '../redux/modules/notifications';
+import { fetchEvents} from '../redux/modules/events';
+import {
+    fetchNotifications,
+    sendNotification,
+    refreshNotifications,
+    gotoNotifTab
+} from '../redux/modules/notifications';
+
+import { NOTIFICATION_TAB , setInitialTab } from '../redux/modules/misc';
 
 import { logoutUser } from '../redux/modules/auth';
+
 
 
 
@@ -28,14 +36,25 @@ class Home extends Component {
             return false;
         });
         FCM.subscribeToTopic('wedding');
-        
+
         FCM.on('notification', (notif) => {
-            console.log(notif);
+            if (notif.opened_from_tray) {
+                this.props.setInitialTab(NOTIFICATION_TAB);
+                return;
+            }
+            let title = notif.fcm.title;
+            let body = notif.fcm.body;
+            Alert.alert(title, body, [
+                { text: 'OK', onPress: () => { this.props.refreshNotifications() } }
+            ]);
+
         });
 
         FCM.getInitialNotification().then((notif) => {
-            console.log(notif);
-
+            if (notif.collapse_key) {
+                this.props.setInitialTab(NOTIFICATION_TAB);
+                return;
+            }
         });
     }
     render() {
@@ -47,7 +66,8 @@ class Home extends Component {
             fetchNotifications={this.props.fetchNotifications}
             sendingNotification={this.props.sendingNotification}
             sendNotification={this.props.sendNotification}
-            notifications={this.props.notifications} />
+            notifications={this.props.notifications}
+            initialTab={this.props.initialTab}/>
     }
 }
 const mapStateToProps = (state) => {
@@ -58,17 +78,20 @@ const mapStateToProps = (state) => {
         isLoggedIn: state.auth.isLoggedIn,
         user: state.auth.user,
         marriageEvents: state.events.marriageEvents,
-        notifications : state.notifs.notifications,
-        isFetching : state.notifs.isFetching,
-        sendingNotification : state.notifs.sendingNotification
+        notifications: state.notifs.notifications,
+        isFetching: state.notifs.isFetching,
+        sendingNotification: state.notifs.sendingNotification,
+        initialTab : state.misc.initialTab
     };
 }
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         fetchEvents: fetchEvents,
         logoutUser: logoutUser,
-        fetchNotifications : fetchNotifications,
-        sendNotification : sendNotification
+        fetchNotifications: fetchNotifications,
+        sendNotification: sendNotification,
+        refreshNotifications: refreshNotifications,
+        setInitialTab : setInitialTab
     }, dispatch);
 }
 

@@ -9,7 +9,7 @@ import {
   Image
 } from 'react-native';
 
-import ScrollableTabView from 'react-native-scrollable-tab-view'
+import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
 import LinearGradient from 'react-native-linear-gradient';
 
 
@@ -41,7 +41,8 @@ const Home = (props) => {
         contentProps={{keyboardShouldPersistTaps : true}}
         tabBarBackgroundColor="#EEEEEE"
         tabBarUnderlineStyle={styles.tabBarUnderline}
-        tabBarActiveTextColor="black">
+        tabBarActiveTextColor="black"
+        page={props.initialTab}>
         <Hotel tabLabel="Hotel" room={props.user.room} />
         <Events tabLabel="Events" marriageEvents={props.marriageEvents} />
         <Notifications tabLabel="Notifications"

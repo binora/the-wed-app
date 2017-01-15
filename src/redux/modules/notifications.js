@@ -1,7 +1,6 @@
 /**
  * @module Notifications
- */
-
+ */ 
 import * as constants from '../../constants';
 import * as utils from '../../utils';
 
@@ -55,6 +54,17 @@ export function sendNotification(notif_body) {
     }
 }
 
+export function refreshNotifications() {
+    return async function (dispatch) {
+        let [error, notifications] = await fetchNotifs();
+        if (error) {
+            dispatch(fetchNotifFailed(error));
+            return;
+        }
+        return dispatch(fetchNotifSuccess(notifications));
+    }
+}
+
 export function sendingNotification() {
     return {
         type: SENDING_NOTIFICATION
@@ -70,7 +80,7 @@ export function sendingNotifFailed(error) {
 export function sendingNotifSuccess(notifications) {
     return {
         type: SENDING_NOTIF_SUCCESS,
-        notifications : notifications
+        notifications: notifications
     };
 }
 
@@ -97,7 +107,8 @@ export function fetchNotifSuccess(notifications) {
 const initialState = {
     isFetching: false,
     sendingNotification: false,
-    notifications: []
+    notifications: [],
+    isNotifTabActive : false
 };
 
 // Reducer
@@ -130,6 +141,7 @@ export default function reducer(state = initialState, action) {
             sendingNotification: false,
             notifications: action.notifications
         });
+
         default: return state
     }
 }

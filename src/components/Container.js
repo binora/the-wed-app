@@ -10,9 +10,8 @@ import bgImage from '../images/bg_image.jpg';
 
 export default class Container extends Component {
   render() {
-    console.log(bgImage);
     return (
-        <Image source={bgImage} style={styles.container} onLoad={()=> {console.log("DFDF")}}>
+        <Image source={bgImage} style={styles.container} >
           {this.props.children}
         </Image>
     )
