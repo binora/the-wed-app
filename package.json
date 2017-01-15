@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "moment": "^2.17.1",
-    "native-base": "0.5.16",
+    "native-base": "0.5.18",
     "react": "15.4.1",
     "react-native": "0.38.0",
     "react-native-fcm": "^2.5.6",
