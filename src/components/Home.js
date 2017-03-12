@@ -26,7 +26,7 @@ const Home = (props) => {
 
   return (
     <View style={styles.homeContainer}>
-      <LinearGradient colors={["#8E0E00", "#1F1C18"]} style={styles.header}>
+      <View style={styles.header}>
         <Text style={styles.headerText}>
           Welcome {props.user.user_name}!
           </Text>
@@ -35,7 +35,7 @@ const Home = (props) => {
             logout
         </Text>
         </TouchableOpacity>
-      </LinearGradient>
+      </View>
 
       <ScrollableTabView
         contentProps={{keyboardShouldPersistTaps : true}}
@@ -65,17 +65,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#EEEEEE"
   },
   header: {
-    padding: 15,
+    padding: 10,
     flexDirection: "row",
     justifyContent: "space-between"
   },
   headerText: {
     fontSize: 20,
-    color: "#EEEEEE"
   },
   logout: {
     fontSize: 10,
-    color: "white"
   },
   tabBarUnderline: {
     backgroundColor: "red"
