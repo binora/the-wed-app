@@ -14,7 +14,9 @@ const SENDING_NOTIF_FAILED = 'notifications/SENDING_NOTIF_FAILED';
 const SENDING_NOTIF_SUCCESS = 'notifications/SENDING_NOTIF_SUCCESS';
 
 
+
 export function fetchNotifications() {
+
     return async function (dispatch) {
         dispatch(fetchingNotificaitons());
         let [error, notifications] = await fetchNotifs();
@@ -104,11 +106,12 @@ export function fetchNotifSuccess(notifications) {
     };
 }
 
+
+
 const initialState = {
     isFetching: false,
     sendingNotification: false,
-    notifications: [],
-    isNotifTabActive : false
+    notifications: []
 };
 
 // Reducer
@@ -141,6 +144,8 @@ export default function reducer(state = initialState, action) {
             sendingNotification: false,
             notifications: action.notifications
         });
+
+
 
         default: return state
     }

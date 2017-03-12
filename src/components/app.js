@@ -8,6 +8,7 @@ import {Scene, Router} from 'react-native-router-flux';
 
 import Login from '../containers/LoginContainer';
 import Home from '../containers/HomeContainer';
+import Notifications from '../containers/NotificationsContainer';
 
 
 export default class App extends Component {
@@ -16,6 +17,7 @@ export default class App extends Component {
         <Scene key="root" tabs={false} hideNavBar={true} >
           <Scene key="login" component={Login} initial={true}/>
           <Scene key="home" component={Home} hideNavBar={true} title={"home"} />
+          <Scene key="notifications" component={Notifications} hideNavBar={false} title={"Notifications"} />
         </Scene>
       </Router>
   }

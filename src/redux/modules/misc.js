@@ -13,6 +13,8 @@ const HOTEL = 0;
 // Action Types
 
 const SET_INITIAL_TAB = 'misc/SET_INITIAL_TAB'
+const INC_BADGE_COUNT = 'notifications/INC_BADGE_COUNT';
+const CLEAR_BADGE_COUNT =  'notifications/CLEAR_BADGE_COUNT';
 
 
 export function setInitialTab(i) {
@@ -21,9 +23,21 @@ export function setInitialTab(i) {
         tabIndex : i || 0
     }
 }
+export function incrementBadgeCount() {
+    return {
+        type: INC_BADGE_COUNT
+    };
+}
+
+export function clearBadgeCount() {
+    return {
+        type: CLEAR_BADGE_COUNT
+    };
+}
 
 const initialState = {
-    initialTab : HOTEL
+    initialTab : HOTEL,
+    badgeCount : 0
 }
 
 export default function reducer(state=initialState, action) {
@@ -31,7 +45,13 @@ export default function reducer(state=initialState, action) {
         case SET_INITIAL_TAB : return Object.assign({}, state, {
             initialTab : action.tabIndex
         });
+        case INC_BADGE_COUNT : return Object.assign({}, state, {
+            badgeCount : state.badgeCount + 1
+        });
 
+        case CLEAR_BADGE_COUNT: return Object.assign({}, state, {
+            badgeCount : 0
+        });
         default : return state;
     }
 }

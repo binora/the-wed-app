@@ -9,26 +9,19 @@ import FCM from 'react-native-fcm';
 import HomeComponent from '../components/Home';
 
 import { fetchEvents} from '../redux/modules/events';
-import {
-    fetchNotifications,
-    sendNotification,
-    refreshNotifications,
-    gotoNotifTab
-} from '../redux/modules/notifications';
+import { refreshNotifications, fetchNotifications} from '../redux/modules/notifications';
 
-import { NOTIFICATION_TAB , setInitialTab } from '../redux/modules/misc';
+import {incrementBadgeCount, clearBadgeCount} from '../redux/modules/misc';
 
 import { logoutUser } from '../redux/modules/auth';
 
-
-
-
 class Home extends Component {
-    componentWillMount() {
+   componentWillMount() {
         if (!this.props.isLoggedIn) {
             return false;
         }
         this.props.fetchEvents();
+        this.props.fetchNotifications();
         BackAndroid.addEventListener('hardwareBackPress', () => {
             if (this.props.isLoggedIn) {
                 BackAndroid.exitApp();
@@ -38,8 +31,8 @@ class Home extends Component {
         FCM.subscribeToTopic('wedding');
 
         FCM.on('notification', (notif) => {
+            console.log("notifications")
             if (notif.opened_from_tray) {
-                this.props.setInitialTab(NOTIFICATION_TAB);
                 return;
             }
             let title = notif.fcm.title;
@@ -47,51 +40,53 @@ class Home extends Component {
             Alert.alert(title, body, [
                 { text: 'OK', onPress: () => { this.props.refreshNotifications() } }
             ]);
-
+            this.props.incrementBadgeCount();
         });
 
         FCM.getInitialNotification().then((notif) => {
             if (notif.collapse_key) {
-                this.props.setInitialTab(NOTIFICATION_TAB);
                 return;
             }
         });
     }
+
+    gotoNotifications() {
+        this.props.clearBadgeCount();
+        Actions.notifications();
+    }
     render() {
         return <HomeComponent
             isFetching={this.props.isFetching}
+            gotoNotifications={this.gotoNotifications.bind(this)}
             user={this.props.user}
             marriageEvents={this.props.marriageEvents}
             logoutUser={this.props.logoutUser}
-            fetchNotifications={this.props.fetchNotifications}
-            sendingNotification={this.props.sendingNotification}
-            sendNotification={this.props.sendNotification}
-            notifications={this.props.notifications}
-            initialTab={this.props.initialTab}/>
+            initialTab={this.props.initialTab}
+            badgeCount={this.props.badgeCount}
+            />
     }
 }
 const mapStateToProps = (state) => {
     if (!state.auth.isLoggedIn) {
+        console.log("popping")
         Actions.pop();
     }
     return {
+        isFetching : state.events.isFetching,
         isLoggedIn: state.auth.isLoggedIn,
         user: state.auth.user,
         marriageEvents: state.events.marriageEvents,
-        notifications: state.notifs.notifications,
-        isFetching: state.notifs.isFetching,
-        sendingNotification: state.notifs.sendingNotification,
-        initialTab : state.misc.initialTab
+        badgeCount : state.misc.badgeCount
     };
 }
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         fetchEvents: fetchEvents,
         logoutUser: logoutUser,
-        fetchNotifications: fetchNotifications,
-        sendNotification: sendNotification,
         refreshNotifications: refreshNotifications,
-        setInitialTab : setInitialTab
+        fetchNotifications : fetchNotifications,
+        clearBadgeCount : clearBadgeCount,
+        incrementBadgeCount : incrementBadgeCount
     }, dispatch);
 }
 

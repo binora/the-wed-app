@@ -4,9 +4,9 @@ import {
   Text,
   TextInput,
   View,
-  ScrollView,
   Dimensions,
-  Keyboard
+  Keyboard,
+  ListView
 } from 'react-native';
 
 import { Card, CardItem, Button as SendButton } from 'native-base';
@@ -21,41 +21,46 @@ export default class Notifications extends Component {
 
   constructor(props) {
     super(props);
+    console.log(props.notifications)
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
-      notif_body: ''
+      notif_body: '',
+      dataSource: ds.cloneWithRows(props.notifications)
     };
     this.onChangeText = this.onChangeText.bind(this);
     this.onSendPress = this.onSendPress.bind(this);
+    this.renderNotif = this.renderNotif.bind(this);
   }
 
-  componentWillMount() {
-    this.props.fetchNotifications();
+  renderNotif(notif) {
+    return (
+      <Card style={styles.notifCard} key={notif._id}>
+        <CardItem>
+          <Text style={styles.message}>
+            Hello,
+                </Text>
+          <Text style={styles.message}>
+            {notif.notif_body}
+          </Text>
+          <Text style={styles.small}>
+            {moment(notif.sent_at).format('MMMM Do YYYY, h:mm:ss a')}
+          </Text>
+        </CardItem>
+      </Card>
+    )
   }
 
-  renderNotifications(notifications) {
-
+  renderNotifications() {
     if (this.props.isFetching) {
       return <Loader isVisible={this.props.isFetching} style={styles.loader} />
     }
-    return notifications.map((notif) => {
-      return (
-        <Card style={styles.notifCard} key={notif._id}>
-          <LinearGradient colors={["#8E0E00", "#1F1C18"]} style={styles.cardBg}>
-            <CardItem>
-              <Text style={styles.message}>
-                Hello,
-                </Text>
-              <Text style={styles.message}>
-                {notif.notif_body}
-              </Text>
-              <Text style={styles.small}>
-                {moment(notif.sent_at).format('MMMM Do YYYY, h:mm:ss a')}
-              </Text>
-            </CardItem>
-          </LinearGradient>
-        </Card>
-      )
-    });
+    return (
+      <ListView
+        contentContainerStyle={styles.notifContainer}
+        dataSource={this.state.dataSource}
+        renderRow={this.renderNotif}
+      />
+    )
 
   }
 
@@ -109,9 +114,7 @@ export default class Notifications extends Component {
   render() {
     return (
       <View >
-        <ScrollView contentContainerStyle={styles.notifContainer}>
-          {this.renderNotifications(this.props.notifications)}
-        </ScrollView>
+        {this.renderNotifications()}
         {this.renderAdminView()}
       </View>
     )
@@ -130,7 +133,6 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 20,
-    color: "white"
   },
   loader: {
     marginTop: 0.3 * height
