@@ -1,6 +1,6 @@
 'use strict';
 
-var SERVER_URL = 'http://192.168.0.104:8080';
+var SERVER_URL = 'https://node-rishu.herokuapp.com';
 var urls = {
     LOGIN : "/auth/login",
     LOGIN_USING_ACCESS_TOKEN : "/auth/login/token",
