@@ -26,24 +26,28 @@ const Home = (props) => {
   return (
     <View style={styles.homeContainer}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>
-          Welcome {props.user.user_name}!
+        <View style={styles.userName}>
+          <Text style={styles.headerText}>
+            {props.user.user_name}
           </Text>
-        <TouchableOpacity onPress={props.gotoNotifications}>
-          <View style={styles.notifIconView}>
-            <Icon 
-            name="bell-o" 
-            style={styles.notifIcon} />
-            <View style={props.badgeCount ? styles.notifBadge : styles.hiddenNotifBadge}>
-              <Text style={props.badgeCount ? styles.badgeText : styles.hiddenBadgeText}>{props.badgeCount}</Text>
+        </View>
+        <View style={styles.headerOptions}>
+          <TouchableOpacity onPress={props.gotoNotifications}>
+            <View style={styles.notifIconView}>
+              <Icon
+                name="bell-o"
+                style={styles.notifIcon} />
+              <View style={props.badgeCount ? styles.notifBadge : styles.hiddenNotifBadge}>
+                <Text style={props.badgeCount ? styles.badgeText : styles.hiddenBadgeText}>{props.badgeCount}</Text>
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={props.logoutUser}>
-          <Text style={styles.logout}>
-            logout
+          </TouchableOpacity>
+          <TouchableOpacity onPress={props.logoutUser}>
+            <Text style={styles.logout}>
+              logout
         </Text>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <ScrollableTabView
@@ -66,14 +70,14 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: "#EEEEEE"
   },
-  notifIconView : {
+  notifIconView: {
     flexDirection: "row",
     justifyContent: "flex-end",
     width: 30,
     height: 30,
   },
-  hiddenNotifBadge : {
-    backgroundColor : "transparent"
+  hiddenNotifBadge: {
+    backgroundColor: "transparent"
   },
   notifBadge: {
     position: 'absolute',
@@ -86,9 +90,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#FF0000',
   },
-
   header: {
-    padding: 10,
+    padding: 5,
     flexDirection: "row",
     justifyContent: "space-between"
   },
@@ -97,21 +100,27 @@ const styles = StyleSheet.create({
   },
   logout: {
     fontSize: 10,
+    paddingLeft : 20
   },
   tabBarUnderline: {
     backgroundColor: "red"
   },
-  notifIcon : { 
-    fontSize: 25, 
-    marginTop : 3, 
-    marginRight : 2 
+  notifIcon: {
+    fontSize: 20,
+    marginTop: 3,
+    marginRight: 2
   },
-  hiddenBadgeText : {
-    color : "transparent"
+  hiddenBadgeText: {
+    color: "transparent"
   },
-  badgeText : { 
+  badgeText: {
     color: "white",
-     fontSize : 10 
+    fontSize: 10
+  },
+  headerOptions: {
+    flex : 1,
+    flexDirection : 'row',
+    justifyContent : 'flex-end',
   }
 
 })

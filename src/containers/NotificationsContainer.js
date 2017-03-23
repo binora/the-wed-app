@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux'
 import { bindActionCreators } from 'redux';
 
 // Dumb component
@@ -12,7 +11,6 @@ import {
 } from '../redux/modules/notifications'
 
 import { clearBadgeCount } from '../redux/modules/misc';
-
 
 class Notifications extends Component {
     render() {

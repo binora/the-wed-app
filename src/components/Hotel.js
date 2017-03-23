@@ -10,12 +10,13 @@ import {
   Dimensions
 } from 'react-native';
 
-import { Card, CardItem } from 'native-base';
+import { Card, CardItem, Button } from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 
 
 import shagunImage from '../images/shagun.png';
 import cardBg from '../images/card_bg.jpg';
+import hotelImage from '../images/hotel.jpeg';
 
 let { height, width } = Dimensions.get('window');
 
@@ -24,31 +25,27 @@ export default class Hotel extends Component {
     return (
       <View style={styles.hotelContainer}>
         <Card style={styles.card}>
-          <LinearGradient colors={["#8E0E00", "#1F1C18"]} style={styles.cardBg}>
-            <CardItem >
-              <Text style={styles.room}>
-                Room  {this.props.room}
+          <CardItem header>
+            <Text>Welcome!</Text>
+          </CardItem>
+          <CardItem cardBody>
+            <Image style={styles.hotelImage} source={hotelImage} />
+          </CardItem>
+          <CardItem content>
+            <Text style={{fontSize : 16}}>
+              Room :  {(this.props.room ? this.props.room : " To be Alloted")}
               </Text>
-            </CardItem>
-          </LinearGradient>
-        </Card>
-        <Card style={styles.card}>
-
-          <View style={styles.location}>
-            <TouchableOpacity onPress={() => Linking.openURL('https://goo.gl/maps/fLH7GhZnzBE2')} >
-              <Image source={shagunImage} />
-            </ TouchableOpacity>
-          </View>
-
-          <LinearGradient colors={["#8E0E00", "#1F1C18"]} style={styles.cardBg}>
             <Text style={styles.shagunText}>
               Shagun Hotel,
-            </Text>
-            <Text style={styles.address}>
               Zirakpur-Panchkula-Kalka Hwy,
               Zirakpur, Punjab 140603
             </Text>
-          </LinearGradient>
+          </CardItem>
+          <CardItem style={{ justifyContent: 'space-around' }}>
+            <Button transparent onPress={() => Linking.openURL('https://goo.gl/maps/fLH7GhZnzBE2')} >
+              <Text style={{color : "blue"}}>Take me there!</Text>
+            </Button>
+          </CardItem>
         </Card>
       </View>
     )
@@ -59,34 +56,22 @@ const styles = StyleSheet.create({
   hotelContainer: {
     flex: 1,
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   card: {
-    flex : 0,
+    flex: 0,
+    flexDirection: "column",
     width: 0.9 * width,
-    marginBottom : 20
   },
-  location: {
-    flexDirection: "row",
-    justifyContent: "space-around"
+  shagunText: {
+    width: 0.5*width,
+    fontSize: 14,
+    lineHeight  :20 
   },
-  room: {
-    fontSize: 50,
-    alignSelf: "center",
-    color: "#EEEEEE"
-  },
-  address: {
-    width: 250,
-    fontSize: 15,
-    alignSelf: "center",
-    color : "#EEEEEE",
-    paddingBottom : 10
-  },
-  shagunText : {
-    width: 250,
-    fontSize: 15,
-    alignSelf: "center",
-    color : "#EEEEEE",
-    paddingTop : 10
+  hotelImage: {
+    alignSelf : "center",
+    width : width,
+    resizeMode: 'cover',
+    height : 0.35*height
   }
 })

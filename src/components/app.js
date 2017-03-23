@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Navigator } from 'react-native';
 
 // routing
-import {Scene, Router} from 'react-native-router-flux';
+import {Scene, Router, ActionConst} from 'react-native-router-flux';
 
 
 
@@ -17,7 +17,7 @@ export default class App extends Component {
         <Scene key="root" tabs={false} hideNavBar={true} >
           <Scene key="login" component={Login} initial={true}/>
           <Scene key="home" component={Home} hideNavBar={true} title={"home"} />
-          <Scene key="notifications" component={Notifications} hideNavBar={false} title={"Notifications"} />
+          <Scene key="notifications" type={ActionConst.PUSH}  component={Notifications} hideNavBar={false} title={"Notifications"} />
         </Scene>
       </Router>
   }

@@ -6,12 +6,14 @@ import {
   View,
   Dimensions,
   Keyboard,
-  ListView
+  ListView,
+  BackAndroid
 } from 'react-native';
 
 import { Card, CardItem, Button as SendButton } from 'native-base';
 import Loader from './Loader';
 import LinearGradient from 'react-native-linear-gradient';
+import { Actions } from 'react-native-router-flux'
 
 import moment from 'moment';
 
@@ -21,7 +23,6 @@ export default class Notifications extends Component {
 
   constructor(props) {
     super(props);
-    console.log(props.notifications)
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
       notif_body: '',
@@ -30,6 +31,20 @@ export default class Notifications extends Component {
     this.onChangeText = this.onChangeText.bind(this);
     this.onSendPress = this.onSendPress.bind(this);
     this.renderNotif = this.renderNotif.bind(this);
+    this.onBackButton = this.onBackButton.bind(this);
+  }
+
+  onBackButton() {
+    Actions.pop();
+    return true;
+  }
+
+  componentWillMount() {
+    BackAndroid.addEventListener('hardwareBackPress', this.onBackButton);
+  }
+  componentWillUnmount() {
+    console.log("unmounting;")
+    BackAndroid.removeEventListener('hardwareBackPress', this.onBackButton);
   }
 
   renderNotif(notif) {
