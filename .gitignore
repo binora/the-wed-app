@@ -40,3 +40,7 @@ buck-out/
 android/app/libs
 *.keystore
 android/app/src/main/assets/fonts/
+
+
+# vscode
+.vscode
